@@ -19,12 +19,12 @@ spec:
         args:
         - --host=0.0.0.0
         - --port=5000
-        - --backend-store-uri=postgresql://mlflow_user:mlflow_pwd@172.30.118.64:5432/mlflow_db
+        - --backend-store-uri=postgresql://mlflow_user:mlflow_pwd@10.128.7.224:5432/mlflow_db
         - --default-artifact-root=s3://mlflow/
         - --workers=2
         env:
         - name: MLFLOW_S3_ENDPOINT_URL
-          value: http://172.30.154.254:9000/
+          value: http://10.129.6.122:9000/
         - name: AWS_ACCESS_KEY_ID
           value: "minioadmin"
         - name: AWS_SECRET_ACCESS_KEY
@@ -51,7 +51,7 @@ spec:
   selector:
     app: mlflow-deployment
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: mlflow-ingress
@@ -64,6 +64,9 @@ spec:
     http:
       paths:
         - backend:
-            serviceName: mlflow-service
-            servicePort: 5000
-          path: /         
+            service:
+                name: mlflow-service
+                port:
+                  number: 5000
+          path: /
+          pathType: ImplementationSpecific        

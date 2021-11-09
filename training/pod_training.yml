@@ -10,9 +10,9 @@ spec:
     imagePullPolicy: IfNotPresent
     env:
     - name: MLFLOW_TRACKING_URI
-      value: http://172.30.88.96:5000/
+      value: http://10.128.7.228:5000/
     - name: MLFLOW_S3_ENDPOINT_URL
-      value: http://172.30.154.254:9000/
+      value: http://10.129.6.122:9000/
     - name: AWS_ACCESS_KEY_ID
       value: "minioadmin"
     - name: AWS_SECRET_ACCESS_KEY

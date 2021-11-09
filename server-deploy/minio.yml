@@ -49,7 +49,7 @@ spec:
   selector:
     app: mlflow-minio 
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: mlflow-minio-ingress
@@ -63,9 +63,12 @@ spec:
     http:
       paths:
         - backend:
-            serviceName: mlflow-minio-service
-            servicePort: 9000
+            service:
+              name: mlflow-minio-service
+              port:
+                number: 9000
           path: /
+          pathType: ImplementationSpecific
 ---          
 apiVersion: v1
 kind: PersistentVolumeClaim
